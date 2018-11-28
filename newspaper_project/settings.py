@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
+from decouple import config
+# from unipath import Path
+# from dj_database_url import parse as db_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,10 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n+dw4w+&*sedz8b0fal037cwumdi(akue(8g++1kv36r++*i@2'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -135,8 +137,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
-EMAIL_PORT = 587
-EMAIL_USER_TLS = True
+EMAIL_HOST = config('EMAIL_HOST',default='')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER',default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD',default='')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_USER_TLS = config('EMAIL_USER_TLS',default=True, cast=bool)
